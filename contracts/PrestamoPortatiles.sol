@@ -22,4 +22,10 @@ contract PrestamoPortatiles{
         portatiles[3] = Portatil("TTL TIC04", Estado.Disponible, address(0));
         portatiles[4] = Portatil("TTLTIC05", Estado.Disponible, address(0));
     }
+
+    function prestarPortatil (uint256 id) public{
+        require (portatiles[id].estadoPortatil == Estado.Disponible, unicode"El portátil no está disponible para préstamo");
+        portatiles[id].estadoPortatil = Estado.Prestado;
+        portatiles[id].prestadoA = msg.sender;
+    }
 }
