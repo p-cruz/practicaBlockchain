@@ -37,4 +37,8 @@ contract PrestamoPortatiles{
         portatiles[id].estadoPortatil = Estado.Disponible;
         portatiles[id].prestadoA = address(0);
     }
+
+    function consultarEstadoPortatil (uint256 id) public view returns (Estado){
+        return portatiles[id].estadoPortatil;
+    }
 }
