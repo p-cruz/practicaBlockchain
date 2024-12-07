@@ -41,4 +41,17 @@ contract PrestamoPortatiles{
     function consultarEstadoPortatil (uint256 id) public view returns (Estado){
         return portatiles[id].estadoPortatil;
     }
+
+    //modifier establece una condición previa a la ejecución de una función
+    modifier soloOwner(){
+        require (msg.sender == owner, unicode"Solo el propietario del smart contract puede realizar esta acción de añadir portatil");
+        //esta línea es sustituida por el cuerpo de la función que incorpora este modifier
+        _; 
+    }
+
+    function agregarPortatil(uint256 id, string memory modelo) public soloOwner{
+        portatiles[id] = Portatil(modelo, Estado.Disponible, address(0));
+        require(bytes(portatiles[id].modeloPortatil).length == 0, unicode"El ID ya está en uso");
+        portatiles[id] = Portatil(modelo, Estado.Disponible, address(0)); 
+    }
 }
