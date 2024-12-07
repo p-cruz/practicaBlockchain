@@ -28,4 +28,13 @@ contract PrestamoPortatiles{
         portatiles[id].estadoPortatil = Estado.Prestado;
         portatiles[id].prestadoA = msg.sender;
     }
+
+    function devolverPortatil (uint256 id) public{
+        //comprobación de que el portátil está prestado
+        require (portatiles[id].estadoPortatil == Estado.Prestado, unicode"El portátil no está prestado, no se puede devolver");
+        //Indicar que únicamente el profesor/a que ha cogido el portátil, el que lo devuelva
+        require (portatiles[id].prestadoA == msg.sender, unicode"Solo el usuario que cogió el portátil, lo puede devolver");
+        portatiles[id].estadoPortatil = Estado.Disponible;
+        portatiles[id].prestadoA = address(0);
+    }
 }
